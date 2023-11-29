@@ -1,11 +1,9 @@
 public class User {
-    // Attributes
     private String name;
     private String username;
     private String password;
     private String role;
 
-    // Constructor
     public User(String name, String username, String password, String role) {
         this.name = name;
         this.username = username;
@@ -13,7 +11,6 @@ public class User {
         this.role = role;
     }
 
-    // Methods
     public String getName() {
         return name;
     }
