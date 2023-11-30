@@ -2,7 +2,7 @@ public class User {
     private String name;
     private String username;
     private String password;
-    private String role;
+    String role;
 
     public User(String name, String username, String password, String role) {
         this.name = name;
@@ -25,5 +25,10 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public void displayInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("Username: " + username);
     }
 }

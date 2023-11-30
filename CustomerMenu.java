@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CustomerMenu {
@@ -16,10 +17,17 @@ public class CustomerMenu {
         System.out.println("***********************************");
 
         System.out.print("Enter your choice: ");
-        int choice = input.nextInt();
+        int choice = 0;
+        try {
+            choice = input.nextInt();
 
-        if (choice < 1 || choice > 7) {
-            System.out.println("Invalid choice. Please try again.\n");
+            if (choice < 1 || choice > 7) {
+                System.out.println("Invalid choice. Please try again.\n");
+                customerMenu();
+            }
+        } catch (InputMismatchException e) {
+            input.nextLine();
+            System.out.println("Invalid input. Please try again.\n");
             customerMenu();
         }
 
@@ -91,21 +99,16 @@ public class CustomerMenu {
         customerMenu();
     }
 
+    public static void accountInformation() {
+        System.out.println("**** Account Information ****");
+        BankApp.currentCustomer.displayInfo();
+        System.out.println("*****************************\n");
+        CustomerMenu.customerMenu();
+    }
+
     public static void logOut() {
         System.out.println("Goodbye, " + BankApp.currentCustomer.getName() + "! See you next time.\n");
         BankApp.currentCustomer = null;
         BankApp.mainMenu();
-    }
-
-    public static void accountInformation() {
-        System.out.println("**** Account Information ****");
-        System.out.println("Name: " + BankApp.currentCustomer.getName());
-        System.out.println("Username: " + BankApp.currentCustomer.getUsername());
-        System.out.println("Password: " + BankApp.currentCustomer.getPassword());
-        System.out.println("Card Number: " + BankApp.currentCustomer.getCardNumber());
-        System.out.println("Pin: " + BankApp.currentCustomer.getPin());
-        System.out.println("Balance: " + BankApp.currentCustomer.getBalance());
-        System.out.println("*****************************\n");
-        CustomerMenu.customerMenu();
     }
 }

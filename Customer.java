@@ -6,7 +6,7 @@ public class Customer extends User {
     private int cardNumber;
     private int pin;
     private double balance;
-    private ArrayList<String> transactionHistory = new ArrayList<>();
+    private ArrayList<Transaction> transactionHistory = new ArrayList<>();
 
     public Customer(String name, String username, String password, int pin) {
         super(name, username, password, "Customer");
@@ -19,15 +19,16 @@ public class Customer extends User {
         return cardNumber;
     }
 
-    public int getPin() {
-        return pin;
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Card Number: " + cardNumber);
+        System.out.println("PIN: " + pin);
+        System.out.println("Balance: " + balance);
     }
 
-    public double getBalance() {
-        return balance;
-    }
-
-    public void addTransaction(String transaction) {
+    public void addTransaction(String description) {
+        Transaction transaction = new Transaction(description);
         transactionHistory.add(transaction);
     }
 
@@ -41,7 +42,7 @@ public class Customer extends User {
         LocalDateTime now = LocalDateTime.now();
 
         this.balance += amount;
-        addTransaction("Deposit of " + amount + " at" + dtf.format(now));
+        addTransaction("(+) Deposit of " + amount + " at " + dtf.format(now));
         System.out.println("Deposit successful! Your new balance is " + this.balance + "\n");
     }
 
@@ -60,7 +61,7 @@ public class Customer extends User {
         LocalDateTime now = LocalDateTime.now();
         this.balance -= amount;
 
-        addTransaction("Withdrawal of " + amount + " at" + dtf.format(now));
+        addTransaction("(-) Withdrawal of " + amount + " at " + dtf.format(now));
         System.out.println("Withdrawal successful! Your new balance is " + this.balance + "\n");
     }
 
@@ -80,16 +81,16 @@ public class Customer extends User {
         this.balance -= amount;
         receiver.balance += amount;
 
-        addTransaction("Transfer of " + amount + " to card number " + receiver.cardNumber + " at" + dtf.format(now));
-        receiver.addTransaction("Received transfer of " + amount + " from card number " + this.cardNumber + " at" + dtf.format(now));
+        addTransaction("(-) Transfer of " + amount + " to card number " + receiver.cardNumber + " at " + dtf.format(now));
+        receiver.addTransaction("(+) Received transfer of " + amount + " from card number " + this.cardNumber + " at " + dtf.format(now));
         System.out.println("Transfer successful! Your new balance is " + this.balance + "\n");
     }
 
     public void showTransactionHistory() {
-        System.out.println("Transaction history:");
-        for (String transaction : this.transactionHistory) {
-            System.out.println(transaction);
+        System.out.println("Transaction history: ");
+        for (Transaction transaction : this.transactionHistory) {
+            System.out.println(transaction.getDescription());
         }
-        System.out.println("*****************************");
+        System.out.println("*****************************\n");
     }
 }

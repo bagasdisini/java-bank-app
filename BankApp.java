@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BankApp {
@@ -23,10 +24,17 @@ public class BankApp {
         System.out.println("***********************************");
 
         System.out.print("Enter your choice: ");
-        int choice = input.nextInt();
+        int choice = 0;
+        try {
+            choice = input.nextInt();
 
-        if (choice < 1 || choice > 4) {
-            System.out.println("Invalid choice. Please try again.\n");
+            if (choice < 1 || choice > 4) {
+                System.out.println("Invalid choice. Please try again.\n");
+                mainMenu();
+            }
+        } catch (InputMismatchException e) {
+            input.nextLine();
+            System.out.println("Invalid input. Please try again.\n");
             mainMenu();
         }
 
@@ -47,9 +55,9 @@ public class BankApp {
     }
 
     public static void login() {
-        System.out.print("Enter your username:");
+        System.out.print("Enter your username: ");
         String username = input.next();
-        System.out.print("Enter your password:");
+        System.out.print("Enter your password: ");
         String password = input.next();
 
         for (Customer customer : customers) {
@@ -66,33 +74,56 @@ public class BankApp {
     }
 
     public static void register() {
-        System.out.print("Enter your name:");
+        System.out.print("Enter your name: ");
         String name = input.next();
-        System.out.print("Enter your username:");
+        if (name.isEmpty()) {
+            System.out.println("Invalid name. Name must be at least 1 character.\n");
+            register();
+            return;
+        }
+
+        System.out.print("Enter your username: ");
         String username = input.next();
-        System.out.print("Enter your password:");
+        if (username.length() < 3 || username.length() > 12 || !username.matches("[A-Za-z0-9]+")) {
+            System.out.println("Invalid username. Username must be 3-12 alphanumeric characters.\n");
+            register();
+            return;
+        }
+
+        System.out.print("Enter your password: ");
         String password = input.next();
-        System.out.print("Enter your pin:");
-        int pin = input.nextInt();
+        if (password.length() < 5) {
+            System.out.println("Invalid password. Password must be at least 5 characters.\n");
+            register();
+            return;
+        }
+
+        System.out.print("Enter your pin: ");
+        String pin = input.next();
+        if (pin.length() != 6 || !pin.matches("[0-9]+")) {
+            System.out.println("Invalid pin. Pin must be 6 digits.\n");
+            register();
+            return;
+        }
 
         for (Customer customer : customers) {
             if (customer.getUsername().equals(username)) {
                 System.out.println("Username is already taken. Please try again.\n");
-                mainMenu();
+                register();
                 return;
             }
         }
 
-        Customer newCustomer = new Customer(name, username, password, pin);
+        Customer newCustomer = new Customer(name, username, password, Integer.parseInt(pin));
         customers.add(newCustomer);
         System.out.println("Registration successful!\n");
         mainMenu();
     }
 
     public static void adminArea() {
-        System.out.print("Enter your username:");
+        System.out.print("Enter your username: ");
         String username = input.next();
-        System.out.print("Enter your password:");
+        System.out.print("Enter your password: ");
         String password = input.next();
 
         for (Admin admin : admins) {
@@ -113,4 +144,3 @@ public class BankApp {
         input.close();
     }
 }
-

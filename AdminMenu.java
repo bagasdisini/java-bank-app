@@ -29,7 +29,6 @@ public class AdminMenu {
             adminMenu();
         }
 
-
         switch (choice) {
             case 1:
                 listCustomer(BankApp.customers);
@@ -52,11 +51,10 @@ public class AdminMenu {
     public static void listCustomer(ArrayList<Customer> customers) {
         System.out.println("**** List of Customers ****");
         for (Customer customer : customers) {
-            System.out.println("Name: " + customer.getName());
-            System.out.println("Username: " + customer.getUsername());
-            System.out.println("Card Number: " + customer.getCardNumber());
-            System.out.println("*****************************");
+            customer.displayInfo();
+            System.out.println();
         }
+        System.out.println("*****************************\n");
         adminMenu();
     }
 
@@ -83,10 +81,8 @@ public class AdminMenu {
     }
 
     public static void accountInformation() {
-        System.out.println("****Account Information****");
-        System.out.println("Name: " + BankApp.currentAdmin.getName());
-        System.out.println("Username: " + BankApp.currentAdmin.getUsername());
-        System.out.println("Role: " + BankApp.currentAdmin.getRole());
+        System.out.println("**** Account Information ****");
+        BankApp.currentAdmin.displayInfo();
         System.out.println("*****************************\n");
         adminMenu();
     }
