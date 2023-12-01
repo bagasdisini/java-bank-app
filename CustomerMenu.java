@@ -6,6 +6,12 @@ public class CustomerMenu {
     static Scanner input = new Scanner(System.in);
 
     public static void customerMenu() {
+        if (BankApp.currentCustomer.getSuspended()) {
+            System.out.println("Your account has suspended, please contact administrator!\n");
+            BankApp.mainMenu();
+            return;
+        }
+
         System.out.println("**** Welcome, " + BankApp.currentCustomer.getName() + "! ****");
         System.out.println("1. Deposit");
         System.out.println("2. Withdrawal");
@@ -57,6 +63,12 @@ public class CustomerMenu {
     }
 
     public static void deposit() {
+        if (BankApp.currentCustomer.getSuspended()) {
+            System.out.println("Your account has suspended, please contact administrator!\n");
+            BankApp.mainMenu();
+            return;
+        }
+
         System.out.print("Enter the amount to deposit: ");
         double amount = input.nextDouble();
         BankApp.currentCustomer.deposit(amount);
@@ -64,6 +76,12 @@ public class CustomerMenu {
     }
 
     public static void withdrawal() {
+        if (BankApp.currentCustomer.getSuspended()) {
+            System.out.println("Your account has suspended, please contact administrator!\n");
+            BankApp.mainMenu();
+            return;
+        }
+
         System.out.print("Enter the amount to withdraw: ");
         double amount = input.nextDouble();
         BankApp.currentCustomer.withdrawal(amount);
@@ -71,6 +89,12 @@ public class CustomerMenu {
     }
 
     public static void transfer(ArrayList<Customer> customers) {
+        if (BankApp.currentCustomer.getSuspended()) {
+            System.out.println("Your account has suspended, please contact administrator!\n");
+            BankApp.mainMenu();
+            return;
+        }
+
         System.out.print("Enter the card number to transfer to: ");
         int cardNumber = input.nextInt();
         System.out.print("Enter the amount to transfer: ");
@@ -95,11 +119,23 @@ public class CustomerMenu {
     }
 
     public static void transactionHistory() {
+        if (BankApp.currentCustomer.getSuspended()) {
+            System.out.println("Your account has suspended, please contact administrator!\n");
+            BankApp.mainMenu();
+            return;
+        }
+
         BankApp.currentCustomer.showTransactionHistory();
         customerMenu();
     }
 
     public static void accountInformation() {
+        if (BankApp.currentCustomer.getSuspended()) {
+            System.out.println("Your account has suspended, please contact administrator!\n");
+            BankApp.mainMenu();
+            return;
+        }
+
         System.out.println("**** Account Information ****");
         BankApp.currentCustomer.displayInfo();
         System.out.println("*****************************\n");

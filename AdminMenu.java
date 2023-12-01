@@ -9,9 +9,10 @@ public class AdminMenu {
         System.out.println("**** Welcome, " + BankApp.currentAdmin.getName() + "! ****");
         System.out.println("1. List Customer");
         System.out.println("2. Transaction History");
-        System.out.println("3. Account Information");
-        System.out.println("4. Log Out");
-        System.out.println("5. Exit App");
+        System.out.println("3. Manage Customer");
+        System.out.println("4. Account Information");
+        System.out.println("5. Log Out");
+        System.out.println("6. Exit App");
         System.out.println("***********************************");
 
         System.out.print("Enter your choice: ");
@@ -19,7 +20,7 @@ public class AdminMenu {
         try {
             choice = input.nextInt();
 
-            if (choice < 1 || choice > 5) {
+            if (choice < 1 || choice > 6) {
                 System.out.println("Invalid choice. Please try again.\n");
                 adminMenu();
             }
@@ -37,12 +38,15 @@ public class AdminMenu {
                 adminTransactionHistory(BankApp.customers);
                 break;
             case 3:
-                accountInformation();
+                AdminManageMenu.adminManageMenu();
                 break;
             case 4:
-                logOut();
+                accountInformation();
                 break;
             case 5:
+                logOut();
+                break;
+            case 6:
                 BankApp.exitApp();
                 break;
         }
@@ -72,7 +76,7 @@ public class AdminMenu {
 
         if (customer == null) {
             System.out.println("Invalid card number. Please try again.\n");
-            CustomerMenu.transactionHistory();
+            AdminMenu.adminTransactionHistory(BankApp.customers);
             return;
         }
 

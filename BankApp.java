@@ -12,6 +12,8 @@ public class BankApp {
     public void start() {
         Admin admin = new Admin("admin", "admin", "admin");
         admins.add(admin);
+        Customer cust = new Customer("customer", "customer", "customer", 123123);
+        customers.add(cust);
         mainMenu();
     }
 
@@ -61,16 +63,38 @@ public class BankApp {
         String password = input.next();
 
         for (Customer customer : customers) {
+            if (customer.getUsername().equals(username) && !customer.getPassword().equals(password)) {
+                if (customer.getSuspended()) {
+                    System.out.println("Your account has suspended, please contact administrator!\n");
+                    mainMenu();
+                }
+
+                if (customer.getTries() == 10) {
+                    customer.setSuspended();
+                }
+
+                System.out.println("Invalid username or password. Please try again.\n");
+                customer.addTries();
+                login();
+                return;
+            }
+
             if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
+                if (customer.getSuspended()) {
+                    System.out.println("Your account has suspended, please contact administrator!\n");
+                    mainMenu();
+                }
+
                 System.out.println("Login successful!\n");
                 currentCustomer = customer;
+                currentCustomer.resetTries();
                 CustomerMenu.customerMenu();
                 return;
             }
         }
 
         System.out.println("Invalid username or password. Please try again.\n");
-        mainMenu();
+        login();
     }
 
     public static void register() {
