@@ -17,6 +17,7 @@ public class Customer extends User {
         this.cardNumber = (int) (Math.random() * 9_999_999);
         this.pin = pin;
         this.balance = 0.0;
+        this.suspended = false;
     }
 
     public int getCardNumber() {
@@ -37,6 +38,7 @@ public class Customer extends User {
         System.out.println("Card Number: " + cardNumber);
         System.out.println("PIN: " + pin);
         System.out.println("Balance: " + balance);
+        System.out.println("IsSuspended: " + suspended);
     }
 
     public void addTries(){
