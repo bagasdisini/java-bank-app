@@ -3,14 +3,16 @@
   <h1 align="center">Java Bank CLI App</h1>
 </p>
 
+![Class Diagram](class-diagram.jpg)
+
 ### About The Project
 
 This is a Java application that simulates a bank system with a command-line interface. It demonstrates the use of object-oriented programming concepts such as inheritance, polymorphism, association, aggregation, and composition.
 The application has two types of users: `admin` and `customer`. Each user has a unique card number, password, and PIN. The card number are randomly generated each time customer are registered. The password are hashed using SHA-256 algorithm for security purposes.
 
 The application comes with two default accounts for testing purposes:
-Admin account: username `admin`, password `admin`.
-Customer account: username `customer`, password `customer`.
+* Admin account: username `admin`, password `admin`.
+* Customer account: username `customer`, password `customer`.
 
 You can use these accounts to login and explore the features of the application. You can also create your own accounts by registering as a customer.
 
