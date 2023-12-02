@@ -10,9 +10,11 @@ public class BankApp {
     static ArrayList<Admin> admins = new ArrayList<>();
 
     public void start() {
-        Admin admin = new Admin("admin", "admin", "admin");
+        String hashedPassword = Authentication.hashPassword("admin");
+        Admin admin = new Admin("admin", "admin", hashedPassword);
         admins.add(admin);
-        Customer cust = new Customer("customer", "customer", "customer", 123123);
+        String hashedPasswordCust = Authentication.hashPassword("customer");
+        Customer cust = new Customer("customer", "customer", hashedPasswordCust, 123123);
         customers.add(cust);
         mainMenu();
     }
@@ -63,13 +65,13 @@ public class BankApp {
         String password = input.next();
 
         for (Customer customer : customers) {
-            if (customer.getUsername().equals(username) && !customer.getPassword().equals(password)) {
+            if (customer.getUsername().equals(username) && !Authentication.hashPassword(password).equals(customer.getPassword())) {
                 if (customer.getSuspended()) {
                     System.out.println("Your account has suspended, please contact administrator!\n");
                     mainMenu();
                 }
 
-                if (customer.getTries() == 10) {
+                if (customer.getTries() == 9) {
                     customer.setSuspended();
                 }
 
@@ -79,7 +81,7 @@ public class BankApp {
                 return;
             }
 
-            if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
+            if (customer.getUsername().equals(username) && Authentication.hashPassword(password).equals(customer.getPassword())) {
                 if (customer.getSuspended()) {
                     System.out.println("Your account has suspended, please contact administrator!\n");
                     mainMenu();
@@ -122,6 +124,8 @@ public class BankApp {
             return;
         }
 
+        String hashedPassword = Authentication.hashPassword(password);
+
         System.out.print("Enter your pin: ");
         String pin = input.next();
         if (pin.length() != 6 || !pin.matches("[0-9]+")) {
@@ -138,7 +142,7 @@ public class BankApp {
             }
         }
 
-        Customer newCustomer = new Customer(name, username, password, Integer.parseInt(pin));
+        Customer newCustomer = new Customer(name, username, hashedPassword, Integer.parseInt(pin));
         customers.add(newCustomer);
         System.out.println("Registration successful!\n");
         mainMenu();
@@ -151,7 +155,7 @@ public class BankApp {
         String password = input.next();
 
         for (Admin admin : admins) {
-            if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
+            if (admin.getUsername().equals(username) && Authentication.hashPassword(password).equals(admin.getPassword())) {
                 System.out.println("Login successful!\n");
                 currentAdmin = admin;
                 AdminMenu.adminMenu();

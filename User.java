@@ -30,5 +30,6 @@ public class User {
     public void displayInfo() {
         System.out.println("Name: " + name);
         System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
     }
 }

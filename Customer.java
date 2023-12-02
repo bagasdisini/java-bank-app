@@ -73,7 +73,7 @@ public class Customer extends User {
             enteredPin = input.nextInt();
 
             while (enteredPin != this.pin) {
-                if (getTries() == 10) {
+                if (getTries() == 9) {
                     setSuspended();
                     CustomerMenu.deposit();
                 }
@@ -85,7 +85,7 @@ public class Customer extends User {
                 enteredPin = input.nextInt();
             }
         } catch (InputMismatchException e) {
-            if (getTries() == 10) {
+            if (getTries() == 9) {
                 setSuspended();
                 CustomerMenu.deposit();
             }
@@ -122,7 +122,7 @@ public class Customer extends User {
             enteredPin = input.nextInt();
 
             while (enteredPin != this.pin) {
-                if (getTries() == 10) {
+                if (getTries() == 9) {
                     setSuspended();
                     CustomerMenu.withdrawal();
                 }
@@ -134,7 +134,7 @@ public class Customer extends User {
                 enteredPin = input.nextInt();
             }
         } catch (InputMismatchException e) {
-            if (getTries() == 10) {
+            if (getTries() == 9) {
                 setSuspended();
                 CustomerMenu.withdrawal();
             }
@@ -171,7 +171,7 @@ public class Customer extends User {
             enteredPin = input.nextInt();
 
             while (enteredPin != this.pin) {
-                if (getTries() == 10) {
+                if (getTries() == 9) {
                     setSuspended();
                     CustomerMenu.transfer(BankApp.customers);
                 }
@@ -183,7 +183,7 @@ public class Customer extends User {
                 enteredPin = input.nextInt();
             }
         } catch (InputMismatchException e) {
-            if (getTries() == 10) {
+            if (getTries() == 9) {
                 setSuspended();
                 CustomerMenu.transfer(BankApp.customers);
             }

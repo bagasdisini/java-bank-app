@@ -6,7 +6,7 @@ public class AdminManageMenu {
     static Scanner input = new Scanner(System.in);
 
     public static void adminManageMenu() {
-        System.out.println("**** Manage User ****");
+        System.out.println("\n**** Manage User ****");
         System.out.println("1. Suspend User");
         System.out.println("2. Unsuspend User");
         System.out.println("3. Go Back");
@@ -20,12 +20,12 @@ public class AdminManageMenu {
             choice = input.nextInt();
 
             if (choice < 1 || choice > 5) {
-                System.out.println("Invalid choice. Please try again.\n");
+                System.out.println("Invalid choice. Please try again.");
                 adminManageMenu();
             }
         } catch (InputMismatchException e) {
             input.nextLine();
-            System.out.println("Invalid input. Please try again.\n");
+            System.out.println("Invalid input. Please try again.");
             adminManageMenu();
         }
 
@@ -37,6 +37,7 @@ public class AdminManageMenu {
                 unsuspendUser(BankApp.customers);
                 break;
             case 3:
+                System.out.println();
                 AdminMenu.adminMenu();
                 break;
             case 4:
@@ -67,6 +68,7 @@ public class AdminManageMenu {
         }
 
         customer.setSuspended();
+        System.out.println("Customer : " + customer.getUsername()+ " has been suspended!");
         adminManageMenu();
     }
 
@@ -89,6 +91,7 @@ public class AdminManageMenu {
         }
 
         customer.resetSuspended();
+        System.out.println("Customer : " + customer.getUsername()+ "'s suspend has been removed!");
         adminManageMenu();
     }
 }
